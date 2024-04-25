@@ -1,6 +1,7 @@
 # Contacts Management Application - Frontend
 
 This is the frontend code for a contacts management application, built using React.js, Redux, and TypeScript. It allows users to manage their contacts by adding, viewing, updating, and deleting contact details.
+![ss2](https://github.com/mdrianislam0or1/contacts-management-frontend/assets/67714964/5f14df7e-8e60-4ba3-93ae-eaee511bad6f)
 
 ## Project Structure
 

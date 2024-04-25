@@ -32,6 +32,7 @@ The frontend code utilizes the following dependencies:
 - **Axios**: HTTP client for making requests to the backend API.
 - **React Query**: Library for data fetching and caching, used for API data fetching.
 - **Ant Design**: styling and model and dashbord layout.
+- **framer-motion**: styling animation.
 
 ## Development Environment
 

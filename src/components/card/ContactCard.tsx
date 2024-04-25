@@ -7,7 +7,7 @@ import {
   useMarkAsFavoriteMutation,
 } from "../../redux/features/contacts/contactsApi";
 import { toast } from "sonner";
-
+import { motion } from "framer-motion";
 import { useQueryClient } from "react-query";
 
 interface ContactCardProps {
@@ -85,41 +85,47 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
   };
 
   return (
-    <CardContainer isFavorite={isFavorite}>
-      {isFavorite && <FavoriteLabel> Your Favorite Contact</FavoriteLabel>}
-      <OptionalDiv>
-        <div>
-          <Avatar src={contact.profilePicture} alt={contact.profilePicture} />
-        </div>
-        <div>
-          <SelectWrapper>
-            <Select>
-              <option onClick={handleFavoriteToggle}>
-                {isFavorite ? "Remove Favorites" : "Add to Favorites"}
-              </option>
-              <option onClick={handleUpdateSubmit}>update</option>
-              <option onClick={handleDelete}>Delete</option>
-            </Select>
-          </SelectWrapper>
-        </div>
-      </OptionalDiv>
-      <ContactInfo>
-        <Name>Contact Name: {contact.name}</Name>
-        <Email>Email Address: {contact.email}</Email>
-        <PhoneNumber>Phone Number: {contact.phoneNumber}</PhoneNumber>
-        <Address>Address: {contact.address}</Address>
-      </ContactInfo>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <CardContainer isFavorite={isFavorite}>
+        {isFavorite && <FavoriteLabel> Your Favorite Contact</FavoriteLabel>}
+        <OptionalDiv>
+          <div>
+            <Avatar src={contact.profilePicture} alt={contact.profilePicture} />
+          </div>
+          <div>
+            <SelectWrapper>
+              <Select>
+                <option onClick={handleFavoriteToggle}>
+                  {isFavorite ? "Remove Favorites" : "Add to Favorites"}
+                </option>
+                <option onClick={handleUpdateSubmit}>update</option>
+                <option onClick={handleDelete}>Delete</option>
+              </Select>
+            </SelectWrapper>
+          </div>
+        </OptionalDiv>
+        <ContactInfo>
+          <Name>Contact Name: {contact.name}</Name>
+          <Email>Email Address: {contact.email}</Email>
+          <PhoneNumber>Phone Number: {contact.phoneNumber}</PhoneNumber>
+          <Address>Address: {contact.address}</Address>
+        </ContactInfo>
 
-      <Actions>
-        <UpdateButton>
-          <UpdateModalCard contact={contact} />
-        </UpdateButton>
-        <FavoriteButton onClick={handleFavoriteToggle}>
-          {isFavorite ? "Remove Favorites" : "Add to Favorites"}
-        </FavoriteButton>
-        <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
-      </Actions>
-    </CardContainer>
+        <Actions>
+          <UpdateButton>
+            <UpdateModalCard contact={contact} />
+          </UpdateButton>
+          <FavoriteButton onClick={handleFavoriteToggle}>
+            {isFavorite ? "Remove Favorites" : "Add to Favorites"}
+          </FavoriteButton>
+          <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+        </Actions>
+      </CardContainer>
+    </motion.div>
   );
 };
 

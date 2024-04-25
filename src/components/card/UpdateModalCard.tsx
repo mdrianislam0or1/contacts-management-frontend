@@ -11,12 +11,10 @@ import Error from "../../ui/Error";
 import Loading from "../../ui/Loading";
 import Success from "../../ui/Success";
 
-import axios from "axios";
-
 const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  // const [modalText, setModalText] = useState("Content of the modal");
+
   const [updateContact, { isLoading, isError, isSuccess }] =
     useUpdateContactMutation();
 
@@ -49,38 +47,9 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
     setOpen(false);
   };
 
-  // const uploadImage = async (imageFile: any) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("image", imageFile);
-
-  //     const response = await axios.post(
-  //       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
-  //       formData
-  //     );
-
-  //     return response.data.data.url;
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     throw error;
-  //   }
-  // };
-
-  // const handleImageUpload = async (imageFile: any) => {
-  //   try {
-  //     const imageUrl = await uploadImage(imageFile);
-  //     setProfilePicture(imageUrl);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     toast.error("Error uploading image");
-  //   }
-  // };
-
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // const imageUrl = await uploadImage(profilePicture);
-
       await updateContact({
         contactId: contact._id,
         contactsData: {
@@ -89,7 +58,6 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
           phoneNumber,
           address,
           profilePicture,
-          // profilePicture: imageUrl ,
         },
       });
       console.log("Contact updated successfully");

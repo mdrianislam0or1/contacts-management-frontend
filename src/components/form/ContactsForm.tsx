@@ -7,7 +7,6 @@ import Error from "../../ui/Error";
 import { toast } from "sonner";
 import Loading from "../../ui/Loading";
 import Success from "../../ui/Success";
-import axios from "axios";
 
 const FormContainer = styled.div`
   display: flex;
@@ -64,45 +63,16 @@ const ContactsForm = () => {
     "https://images.unsplash.com/photo-1627389955928-2f3a48686106?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   );
 
-  // const uploadImage = async (imageFile: any) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("image", imageFile);
-
-  //     const response = await axios.post(
-  //       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
-  //       formData
-  //     );
-
-  //     return response.data.data.url;
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     throw error;
-  //   }
-  // };
-
-  // const handleImageUpload = async (imageFile: any) => {
-  //   try {
-  //     const imageUrl = await uploadImage(imageFile);
-  //     setProfilePicture(imageUrl);
-  //   } catch (error: any) {
-  //     toast.error("Error uploading image", error);
-  //   }
-  // };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // const imageUrl = await uploadImage(profilePicture);
-
       const newContact = await contactsData({
         name,
         email,
         phoneNumber,
         address,
         profilePicture,
-        // profilePicture: imageUrl,
       });
       console.log("contact", newContact);
 
@@ -174,19 +144,6 @@ const ContactsForm = () => {
             required
           />
         </FormGroup>
-        {/* <FormGroup>
-          <Label>Profile Picture</Label>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                handleImageUpload(file);
-              }
-            }}
-          />
-        </FormGroup> */}
 
         <Button type="submit">Submit</Button>
         {isError && <Error status="Error" message="Error adding contact" />}

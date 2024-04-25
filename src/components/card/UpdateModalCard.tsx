@@ -10,14 +10,12 @@ import { useUpdateContactMutation } from "../../redux/features/contacts/contacts
 import Error from "../../ui/Error";
 import Loading from "../../ui/Loading";
 import Success from "../../ui/Success";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "react-query";
 import axios from "axios";
 
 const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
+  //   const [modalText, setModalText] = useState("Content of the modal");
   const [updateContact, { isLoading, isError, isSuccess }] =
     useUpdateContactMutation();
 
@@ -40,7 +38,6 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
   };
 
   const handleOk = async () => {
-    setModalText("The modal will be closed after two seconds");
     setConfirmLoading(true);
 
     setConfirmLoading(false);
@@ -176,10 +173,10 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
 
 export default UpdateModalCard;
 
-const ModalButton = styled.button`
-  background-color: #4caf50;
-  color: #fff;
-`;
+// const ModalButton = styled.button`
+//   background-color: #4caf50;
+//   color: #fff;
+// `;
 
 const FormContainer = styled.div`
   display: flex;

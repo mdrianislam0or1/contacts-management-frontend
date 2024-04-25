@@ -38,7 +38,7 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #00224d;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -62,44 +62,45 @@ const ContactsForm = () => {
   const [address, setAddress] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
 
-  const uploadImage = async (imageFile: any) => {
-    try {
-      const formData = new FormData();
-      formData.append("image", imageFile);
+  // const uploadImage = async (imageFile: any) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("image", imageFile);
 
-      const response = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
-        formData
-      );
+  //     const response = await axios.post(
+  //       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
+  //       formData
+  //     );
 
-      return response.data.data.url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      throw error;
-    }
-  };
+  //     return response.data.data.url;
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     throw error;
+  //   }
+  // };
 
-  const handleImageUpload = async (imageFile: any) => {
-    try {
-      const imageUrl = await uploadImage(imageFile);
-      setProfilePicture(imageUrl);
-    } catch (error: any) {
-      toast.error("Error uploading image", error);
-    }
-  };
+  // const handleImageUpload = async (imageFile: any) => {
+  //   try {
+  //     const imageUrl = await uploadImage(imageFile);
+  //     setProfilePicture(imageUrl);
+  //   } catch (error: any) {
+  //     toast.error("Error uploading image", error);
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const imageUrl = await uploadImage(profilePicture);
+      // const imageUrl = await uploadImage(profilePicture);
 
       const newContact = await contactsData({
         name,
         email,
         phoneNumber,
         address,
-        profilePicture: imageUrl,
+        profilePicture,
+        // profilePicture: imageUrl,
       });
       console.log("contact", newContact);
 
@@ -108,6 +109,8 @@ const ContactsForm = () => {
       setPhoneNumber("");
       setAddress("");
       setProfilePicture("");
+
+      window.location.reload();
 
       toast.success("Contact added successfully");
     } catch (error) {
@@ -118,7 +121,7 @@ const ContactsForm = () => {
 
   return (
     <FormContainer>
-      <FormImage src="image/contacts.png" alt="" />
+      <FormImage src="image/1.png" alt="contact" />
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Name</Label>
@@ -160,6 +163,16 @@ const ContactsForm = () => {
           />
         </FormGroup>
         <FormGroup>
+          <Label>Profile Picture URL</Label>
+          <Input
+            type="text"
+            name="profilePicture"
+            value={profilePicture}
+            onChange={(e) => setProfilePicture(e.target.value)}
+            required
+          />
+        </FormGroup>
+        {/* <FormGroup>
           <Label>Profile Picture</Label>
           <Input
             type="file"
@@ -171,7 +184,7 @@ const ContactsForm = () => {
               }
             }}
           />
-        </FormGroup>
+        </FormGroup> */}
 
         <Button type="submit">Submit</Button>
         {isError && <Error status="Error" message="Error adding contact" />}

@@ -10,12 +10,13 @@ import { useUpdateContactMutation } from "../../redux/features/contacts/contacts
 import Error from "../../ui/Error";
 import Loading from "../../ui/Loading";
 import Success from "../../ui/Success";
+
 import axios from "axios";
 
 const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  //   const [modalText, setModalText] = useState("Content of the modal");
+  // const [modalText, setModalText] = useState("Content of the modal");
   const [updateContact, { isLoading, isError, isSuccess }] =
     useUpdateContactMutation();
 
@@ -48,37 +49,37 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
     setOpen(false);
   };
 
-  const uploadImage = async (imageFile: any) => {
-    try {
-      const formData = new FormData();
-      formData.append("image", imageFile);
+  // const uploadImage = async (imageFile: any) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("image", imageFile);
 
-      const response = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
-        formData
-      );
+  //     const response = await axios.post(
+  //       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
+  //       formData
+  //     );
 
-      return response.data.data.url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      throw error;
-    }
-  };
+  //     return response.data.data.url;
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     throw error;
+  //   }
+  // };
 
-  const handleImageUpload = async (imageFile: any) => {
-    try {
-      const imageUrl = await uploadImage(imageFile);
-      setProfilePicture(imageUrl);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("Error uploading image");
-    }
-  };
+  // const handleImageUpload = async (imageFile: any) => {
+  //   try {
+  //     const imageUrl = await uploadImage(imageFile);
+  //     setProfilePicture(imageUrl);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     toast.error("Error uploading image");
+  //   }
+  // };
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const imageUrl = await uploadImage(profilePicture);
+      // const imageUrl = await uploadImage(profilePicture);
 
       await updateContact({
         contactId: contact._id,
@@ -87,10 +88,11 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
           email,
           phoneNumber,
           address,
-          profilePicture: imageUrl,
+          profilePicture,
+          // profilePicture: imageUrl ,
         },
       });
-
+      console.log("Contact updated successfully");
       toast("Contact details updated successfully");
       window.location.reload();
     } catch (error) {
@@ -103,14 +105,14 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
     <>
       <div onClick={showModal}>Update</div>
       <Modal
-        title="Update Contact"
+        title=""
         visible={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
         <FormContainer>
-          <h2>Update Contact {contact._id}</h2>
+          <h2 style={{ textAlign: "center" }}>Update Contact {contact._id}</h2>
           <Form onSubmit={handleUpdateSubmit}>
             <FormGroup>
               <Label>Name</Label>
@@ -148,6 +150,16 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
               />
             </FormGroup>
             <FormGroup>
+              <Label>Profile Picture URL</Label>
+              <Input
+                type="text"
+                value={profilePicture}
+                onChange={(e) => setProfilePicture(e.target.value)}
+                required
+              />
+            </FormGroup>
+
+            {/* <FormGroup>
               <Label>Profile Picture</Label>
               <Input
                 type="file"
@@ -159,7 +171,7 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
                   }
                 }}
               />
-            </FormGroup>
+            </FormGroup> */}
             <Button type="submit">Update</Button>
           </Form>
           {isError && <Error status="Error" message="Error updating contact" />}
@@ -172,11 +184,6 @@ const UpdateModalCard: React.FC<{ contact: TContact }> = ({ contact }) => {
 };
 
 export default UpdateModalCard;
-
-// const ModalButton = styled.button`
-//   background-color: #4caf50;
-//   color: #fff;
-// `;
 
 const FormContainer = styled.div`
   display: flex;
@@ -205,10 +212,11 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4caf50;
+  width: 100%;
+  padding: 10px;
+  background-color: #00224d;
   color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 `;

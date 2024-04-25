@@ -78,16 +78,38 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
     }
   };
 
+  const handleUpdateSubmit = async () => {
+    <div>
+      <UpdateModalCard contact={contact} />
+    </div>;
+  };
+
   return (
     <CardContainer isFavorite={isFavorite}>
-      {isFavorite && <FavoriteLabel>This is a favorite contact</FavoriteLabel>}
-      <Avatar src={contact.profilePicture} alt={contact.profilePicture} />
+      {isFavorite && <FavoriteLabel> Your Favorite Contact</FavoriteLabel>}
+      <OptionalDiv>
+        <div>
+          <Avatar src={contact.profilePicture} alt={contact.profilePicture} />
+        </div>
+        <div>
+          <SelectWrapper>
+            <Select>
+              <option onClick={handleFavoriteToggle}>
+                {isFavorite ? "Remove Favorites" : "Add to Favorites"}
+              </option>
+              <option onClick={handleUpdateSubmit}>update</option>
+              <option onClick={handleDelete}>Delete</option>
+            </Select>
+          </SelectWrapper>
+        </div>
+      </OptionalDiv>
       <ContactInfo>
         <Name>Contact Name: {contact.name}</Name>
         <Email>Email Address: {contact.email}</Email>
         <PhoneNumber>Phone Number: {contact.phoneNumber}</PhoneNumber>
         <Address>Address: {contact.address}</Address>
       </ContactInfo>
+
       <Actions>
         <UpdateButton>
           <UpdateModalCard contact={contact} />
@@ -102,6 +124,25 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
 };
 
 export default ContactCard;
+
+const OptionalDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SelectWrapper = styled.div`
+  position: relative;
+  margin-top: 10px;
+`;
+
+const Select = styled.select`
+  background-color: #143f6b;
+  color: #fff;
+  padding: 4px 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+`;
 
 const Avatar = styled.img`
   width: 100px;
@@ -137,7 +178,7 @@ const Actions = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 8px 10px;
+  padding: 6px 8px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -145,17 +186,17 @@ const Button = styled.button`
 `;
 
 const UpdateButton = styled(Button)`
-  background-color: #4caf50;
-  color: #fff;
+  background-color: #a3d8ff;
+  color: balck;
 `;
 
 const DeleteButton = styled(Button)`
-  background-color: #f44336;
+  background-color: #ff204e;
   color: #fff;
 `;
 
 const FavoriteButton = styled(Button)`
-  background-color: #3f51b5;
+  background-color: #4ccd99;
   color: #fff;
 `;
 

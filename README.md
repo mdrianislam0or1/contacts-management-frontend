@@ -44,7 +44,7 @@ The frontend code is developed using:
 
 ## Contributors
 
-- [Your Name](https://github.com/mdrianislam0or1)
+- [Rian Islam](https://github.com/mdrianislam0or1)
 
 ## License
 

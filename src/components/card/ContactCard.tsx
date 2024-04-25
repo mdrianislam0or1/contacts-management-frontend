@@ -207,7 +207,9 @@ const CardContainer = styled.div<{ isFavorite: boolean }>`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  border-top: ${({ isFavorite }) => (isFavorite ? "3px solid red" : "none")};
+  border-top: ${({ isFavorite }) =>
+    isFavorite ? "3px solid #FFD95A" : "none"};
+
   position: relative;
 `;
 
@@ -217,7 +219,8 @@ const FavoriteLabel = styled.div`
   left: 0;
   right: 0;
   background-color: #fff;
-  color: red;
-  padding: 5px 10px;
+  color: #ffd95a;
+  padding: 4px 6px;
+  text-align: right;
   font-weight: bold;
 `;
